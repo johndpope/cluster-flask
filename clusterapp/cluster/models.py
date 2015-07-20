@@ -8,10 +8,7 @@ from flask import Flask
 import os,urlparse
 
 app = Flask(__name__)
-if 'DYNO' in os.environ:
-	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-else:
-	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://alexandersmith:@localhost:5432/alexandersmith'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 
