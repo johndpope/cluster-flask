@@ -48,6 +48,9 @@ html,body, .container, .container-fluid {
 .info button {
   background: #56A0D3;
 }
+.clusterbutton {
+  margin-top: 10px;
+}
 .img-responsive {
   /*height:75%;
   width:75%; */
