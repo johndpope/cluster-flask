@@ -29,23 +29,24 @@ class Cluster(Resource):
 
 	def post(self,**kwargs):
 
+		#parser.parse_args() ?
 		hack = eval(request.form.to_dict().keys()[0])
 
-		#args = parser.parse_args()
 		clusterer = None
 		if kwargs['algorithm'] == 'dbscan':
 			try:
 				min_pts = int(hack['min_pts'])
 			except KeyError:
-				abort(404)
+				abort(400)
 			except ValueError:
-				abort(404)
+				abort(400)
 			try:
+				print hack['eps']
 				eps = float(hack['eps'])
 			except KeyError:
-				abort(404)
+				abort(400)
 			except ValueError:
-				abort(404)
+				abort(400)
 			clusterer = ca.DbscanClusterer()
 			clusterer.set_minpts(min_pts)
 			clusterer.set_eps(eps)
@@ -53,18 +54,18 @@ class Cluster(Resource):
 			try:
 				n_clusters = int(hack['n_clusters'])
 			except KeyError:
-				abort(404)
+				abort(400)
 			except ValueError:
-				abort(404)
+				abort(400)
 			clusterer = ca.KmeansClusterer()
 			clusterer.set_nclusters(n_clusters)
 		elif kwargs['algorithm'] == 'ward':
 			try:
 				n_clusters = int(hack['n_clusters'])
 			except KeyError:
-				abort(404)
+				abort(400)
 			except ValueError:
-				abort(404)
+				abort(400)
 			clusterer = ca.WardClusterer()
 			clusterer.set_nclusters(n_clusters)
 
