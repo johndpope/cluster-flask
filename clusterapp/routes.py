@@ -1,8 +1,8 @@
-from clusterapp import app,api
+from clusterapp import app, api
 import os
 from functools import wraps
-from flask import Flask,render_template,jsonify, current_app, redirect, session, request, url_for, flash
-from flask.ext.restful import reqparse,Resource,marshal_with, fields
+from flask import Flask, render_template ,abort ,jsonify, current_app, redirect, session, request, url_for, flash
+from flask.ext.restful import reqparse, Resource, marshal_with, fields
 
 import json
 import cluster.models as cm
@@ -37,15 +37,15 @@ class Cluster(Resource):
 			try:
 				min_pts = int(hack['min_pts'])
 			except KeyError:
-				return
+				abort(404)
 			except ValueError:
-				return
+				abort(404)
 			try:
 				eps = float(hack['eps'])
 			except KeyError:
-				return
+				abort(404)
 			except ValueError:
-				return
+				abort(404)
 			clusterer = ca.DbscanClusterer()
 			clusterer.set_minpts(min_pts)
 			clusterer.set_eps(eps)
@@ -53,18 +53,18 @@ class Cluster(Resource):
 			try:
 				n_clusters = int(hack['n_clusters'])
 			except KeyError:
-				return
+				abort(404)
 			except ValueError:
-				return
+				abort(404)
 			clusterer = ca.KmeansClusterer()
 			clusterer.set_nclusters(n_clusters)
 		elif kwargs['algorithm'] == 'ward':
 			try:
 				n_clusters = int(hack['n_clusters'])
 			except KeyError:
-				return
+				abort(404)
 			except ValueError:
-				return
+				abort(404)
 			clusterer = ca.WardClusterer()
 			clusterer.set_nclusters(n_clusters)
 
