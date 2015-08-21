@@ -2,7 +2,6 @@
 html,body, .container, .container-fluid {
   height: 100%;
   width: 100%;
-  overflow: scroll;
   padding-bottom: 0;
   margin-bottom: 0;
 }
