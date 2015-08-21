@@ -1,7 +1,4 @@
-from sqlalchemy import create_engine
-
 from flask.ext.sqlalchemy import SQLAlchemy
-engine = create_engine('sqlite:///:memory:', echo=True)
 
 from flask import Flask
 
@@ -9,9 +6,17 @@ import os,urlparse
 
 app = Flask(__name__)
 if 'DYNO' in os.environ:
+	# production database URI
 	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 else:
-	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://alexandersmith:@localhost:5432/alexandersmith'
+	import sys,os
+	try:
+		path = os.path.dirname(__file__)
+		with open(path + os.path.sep + 'db_access') as f:
+			# development database URI.
+			app.config['SQLALCHEMY_DATABASE_URI'] = f.readline()
+	except IOError:
+		sys.exit('db_access not found')
 db = SQLAlchemy(app)
 
 
@@ -97,12 +102,23 @@ def get_all_algorithms():
 
 if __name__ == '__main__':
 
-	#db.session.query(Citation).delete()
-	#db.session.query(Parameter).delete()
-	#db.session.query(Algorithm).delete()
-	#db.session.query(AlgorithmParameter).delete()
-
-
+	# better way to determine if table exists?
+	try:
+		db.session.query(Citation).delete()
+	except:
+		pass
+	try:
+		db.session.Parameter.query.delete()
+	except:
+		pass
+	try:
+		db.session.Algorithm.query.delete()
+	except:
+		pass
+	try:
+		db.session.AlgorithmParameter.query.delete()
+	except:
+		pass
 	db.session.commit()
 
 	db.create_all()
