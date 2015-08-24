@@ -2,7 +2,9 @@ import sys,os
 import numpy
 import scipy
 from sklearn.cluster import DBSCAN, KMeans, Ward
-sys.path.append(os.path.dirname(os.path.abspath(__file__)).rsplit('/',1)[0] + '/libs/')
+libs = '%slibs%s'%(os.path.sep,os.path.sep)
+libs_dir = os.path.dirname(os.path.abspath(__file__)).rsplit(os.path.sep,1)[0] + libs
+sys.path.append(libs_dir)
 from haversine import haversine
 
 
