@@ -1,0 +1,52 @@
+html, body, .tall-col {
+  height: 100%;
+}
+.container .row {
+	width: 100%;
+}
+.container-fluid {
+	height: 100%;
+	width: 100%;
+}
+.map-row {
+	height: 100%;
+}
+.cluster-bar {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+.sidebar {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 5px;
+  padding: 15px;
+  float: left;
+}
+.sidebar-wrapper {
+  display: block;
+}
+.sidebar-wrapper > h3, p {
+  text-align: center;
+}
+#cluster-parameters * {
+	margin-bottom: 10px;
+}
+.map {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#navbar-about {
+  background-color: #FFFFFF;
+}
+.about {
+  margin-top: 15px;
+  display: inline-block;
+}
+.about button {
+  background: #56A0D3;
+}
